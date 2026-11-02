@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discover Clubs - CampusConnect</title>
+  <!-- Tailwind CSS Output -->
+  <link href="./output.css" rel="stylesheet">
+  <!-- Local Offline Lucide Icons -->
+  <script src="./lucide.min.js"></script>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-800 antialiased flex flex-col font-sans">
+
+  <!-- NAVIGATION HEADER -->
+  <!-- NAVIGATION HEADER -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-2.5 font-bold text-xl text-slate-900">
+        <div class="p-2 bg-indigo-600 text-white rounded-xl">
+          <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+        </div>
+        <span>CampusConnect</span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="index.html" class="text-indigo-600 font-semibold border-b-2 border-indigo-600 pb-1">Home</a>
+        <a href="clubs.html" class="text-slate-600 hover:text-indigo-600 transition">Discover Clubs</a>
+        <a href="events.html" class="text-slate-600 hover:text-indigo-600 transition">Events</a>
+        <a href="announcements.html" class="text-slate-600 hover:text-indigo-600 transition">Announcements</a>
+      </nav>
+
+      <!-- Desktop Auth Buttons (Only shows on large screens) -->
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="login.html" class="px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 transition">Login</a>
+        <a href="register.html" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-sm transition">Register</a>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button id="menu-btn" class="md:hidden p-2 text-slate-600 hover:text-slate-900 focus:outline-none">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown Menu (Opened by Hamburger) -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-3">
+      <a href="index.html" class="block text-sm font-medium text-indigo-600 py-1.5">Home</a>
+      <a href="clubs.html" class="block text-sm font-medium text-slate-600 py-1.5">Discover Clubs</a>
+      <a href="events.html" class="block text-sm font-medium text-slate-600 py-1.5">Events</a>
+      <a href="announcements.html" class="block text-sm font-medium text-slate-600 py-1.5">Announcements</a>
+      
+      <!-- THIS IS THE ONLY PLACE MOBILE BUTTONS LIVE -->
+      <!-- auth.js looks for id="mobile-auth-container" to swap these between Login/Register and Logout -->
+      <div class="pt-3 border-t border-slate-100 flex items-center gap-3" id="mobile-auth-container">
+        <a href="login.html" class="flex-1 text-center py-2 text-sm font-medium text-slate-700 bg-slate-100 rounded-xl">Login</a>
+        <a href="register.html" class="flex-1 text-center py-2 text-sm font-medium text-white bg-indigo-600 rounded-xl shadow-sm">Register</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT AREA -->
+  <main class="flex-1">
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-slate-950 text-white py-16 sm:py-20 lg:py-24 overflow-hidden">
+      <img src="./image.jpg" alt="Campus Background" class="absolute inset-0 w-full h-full object-cover opacity-30"/>
+      <div class="absolute inset-0 bg-linear-to-r from-slate-950 via-slate-950/80 to-transparent"></div>
+
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl">
+          <span class="text-xs font-bold uppercase tracking-wider text-indigo-400 bg-indigo-950/80 px-3 py-1 rounded-full border border-indigo-800/50">
+            EXPLORE. CONNECT. BELONG.
+          </span>
+          <h1 class="mt-4 text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
+            Discover <span class="text-indigo-400">Clubs</span>
+          </h1>
+          <p class="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed">
+            Find your people, pursue your interests and be part of something bigger. Browse through our student clubs and join a community that matches your passion.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEARCH & FILTERS BAR -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
+      <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-md border border-slate-200/80 flex flex-col lg:flex-row gap-4 items-center justify-between">
+        
+        <!-- Search Input -->
+        <div class="relative w-full lg:w-96">
+          <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+          <input type="text" id="search-input" placeholder="Search for clubs..." 
+            class="w-full pl-10 pr-4 py-2.5 text-sm bg-slate-50 text-slate-800 rounded-xl border border-slate-200 focus:bg-white focus:border-indigo-500 focus:outline-none transition">
+        </div>
+
+        <!-- Filter Dropdowns -->
+        <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+          <select id="category-filter" class="px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl text-slate-700 font-medium focus:outline-none focus:border-indigo-500">
+            <option value="All">All Categories</option>
+            <option value="Technology">Technology</option>
+            <option value="Arts & Culture">Arts & Culture</option>
+            <option value="Sports">Sports</option>
+            <option value="Personal Growth">Personal Growth</option>
+            <option value="Environment">Environment</option>
+            <option value="Academic">Academic</option>
+            <option value="Wellness">Wellness</option>
+          </select>
+
+          <select id="faculty-filter" class="px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl text-slate-700 font-medium focus:outline-none focus:border-indigo-500">
+            <option value="All">All Faculties</option>
+            <option value="Faculty of Natural & Applied Sciences">Natural & Applied Sciences</option>
+            <option value="Faculty of Arts & Social Sciences">Arts & Social Sciences</option>
+            <option value="Faculty of Management Sciences">Management Sciences</option>
+            <option value="Faculty of Admin">Admin</option>
+            <option value="Faculty of Education">Education</option>
+            <option value="Faculty of Law">Law</option>
+          </select>
+
+          <select id="sort-filter" class="px-4 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl text-slate-700 font-medium focus:outline-none focus:border-indigo-500">
+            <option value="popular">Sort by: Popular</option>
+            <option value="az">Name (A-Z)</option>
+            <option value="members">Member Count</option>
+          </select>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- MAIN GRID SECTION -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- LEFT: Clubs Cards Grid (8 Columns) -->
+        <div class="lg:col-span-8">
+          <p id="club-count-label" class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Showing 10 clubs</p>
+
+          <div id="clubs-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Dynamically rendered or filtered via JS -->
+          </div>
+
+          <!-- Empty Search State -->
+          <div id="empty-state" class="hidden py-16 text-center bg-white rounded-2xl border border-slate-200/80 shadow-sm">
+            <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto mb-3">
+              <i data-lucide="search-x" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-base font-bold text-slate-900">No matching clubs found</h3>
+            <p class="text-xs text-slate-500 mt-1">Try adjusting your search query or category filters.</p>
+          </div>
+        </div>
+
+        <!-- RIGHT: Categories & Faculty Filter Sidebars (4 Columns) -->
+        <div class="lg:col-span-4 space-y-6">
+
+          <!-- Categories Widget -->
+          <div class="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm">
+            <h3 class="text-base font-bold text-slate-900 mb-4 flex items-center gap-2">
+              <i data-lucide="grid" class="w-4 h-4 text-indigo-600"></i> Categories
+            </h3>
+            <div id="category-sidebar-list" class="space-y-1 text-sm font-medium">
+              <button onclick="setCategoryFromSidebar('All')" class="w-full text-left flex items-center justify-between py-2 px-3 rounded-xl bg-indigo-50 text-indigo-700 transition">
+                <span>All Categories</span>
+                <span class="text-xs bg-indigo-200/60 px-2 py-0.5 rounded-full font-bold">10</span>
+              </button>
+              <button onclick="setCategoryFromSidebar('Technology')" class="w-full text-left flex items-center justify-between py-2 px-3 rounded-xl text-slate-600 hover:bg-slate-50 transition">
+                <span>Technology</span>
+                <span class="text-xs bg-slate-100 px-2 py-0.5 rounded-full text-slate-500">2</span>
+              </button>
+              <button onclick="setCategoryFromSidebar('Arts & Culture')" class="w-full text-left flex items-center justify-between py-2 px-3 rounded-xl text-slate-600 hover:bg-slate-50 transition">
+                <span>Arts & Culture</span>
+                <span class="text-xs bg-slate-100 px-2 py-0.5 rounded-full text-slate-500">2</span>
+              </button>
+              <button onclick="setCategoryFromSidebar('Sports')" class="w-full text-left flex items-center justify-between py-2 px-3 rounded-xl text-slate-600 hover:bg-slate-50 transition">
+                <span>Sports</span>
+                <span class="text-xs bg-slate-100 px-2 py-0.5 rounded-full text-slate-500">2</span>
+              </button>
+              <button onclick="setCategoryFromSidebar('Personal Growth')" class="w-full text-left flex items-center justify-between py-2 px-3 rounded-xl text-slate-600 hover:bg-slate-50 transition">
+                <span>Personal Growth</span>
+                <span class="text-xs bg-slate-100 px-2 py-0.5 rounded-full text-slate-500">1</span>
+              </button>
+              <button onclick="setCategoryFromSidebar('Environment')" class="w-full text-left flex items-center justify-between py-2 px-3 rounded-xl text-slate-600 hover:bg-slate-50 transition">
+                <span>Environment</span>
+                <span class="text-xs bg-slate-100 px-2 py-0.5 rounded-full text-slate-500">1</span>
+              </button>
+              <button onclick="setCategoryFromSidebar('Academic')" class="w-full text-left flex items-center justify-between py-2 px-3 rounded-xl text-slate-600 hover:bg-slate-50 transition">
+                <span>Academic</span>
+                <span class="text-xs bg-slate-100 px-2 py-0.5 rounded-full text-slate-500">1</span>
+              </button>
+              <button onclick="setCategoryFromSidebar('Wellness')" class="w-full text-left flex items-center justify-between py-2 px-3 rounded-xl text-slate-600 hover:bg-slate-50 transition">
+                <span>Wellness</span>
+                <span class="text-xs bg-slate-100 px-2 py-0.5 rounded-full text-slate-500">1</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Suggest Club Banner Widget -->
+          <div class="bg-linear-to-br from-indigo-900 to-slate-900 text-white rounded-2xl p-5 shadow-sm">
+            <div class="p-2.5 bg-white/10 w-fit rounded-xl mb-3 text-indigo-300">
+              <i data-lucide="help-circle" class="w-5 h-5"></i>
+            </div>
+            <h4 class="text-sm font-bold">Can't find a club you're interested in?</h4>
+            <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">Start a club or suggest one to the student affairs office.</p>
+            <a href="learn-more.html" class="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-300 hover:text-white transition">
+              Learn more <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 text-slate-600 py-8 text-sm mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+      <div class="flex items-center justify-center md:justify-start gap-2 font-bold text-slate-900">
+        <div class="p-1.5 bg-indigo-600 text-white rounded-lg">
+          <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+        </div>
+        <span>CampusConnect</span>
+      </div>
+
+      <div class="flex flex-wrap justify-center items-center gap-6 text-xs text-slate-500">
+        <a href="index.html" class="hover:text-indigo-600">Home</a>
+        <a href="clubs.html" class="hover:text-indigo-600">Discover Clubs</a>
+        <a href="events.html" class="hover:text-indigo-600">Events</a>
+        <a href="announcements.html" class="hover:text-indigo-600">Announcements</a>
+      </div>
+
+      <p class="text-xs text-slate-400">&copy; 2026 CampusConnect.</p>
+    </div>
+  </footer>
+
+  <!-- DYNAMIC FILTER SCRIPT -->
+  <script>
+    const clubsData = [
+      {
+        id: "tech-innovators",
+        name: "Tech Innovators",
+        category: "Technology",
+        faculty: "Faculty of Natural & Applied Sciences",
+        members: 42,
+        description: "A community for students interested in coding, software development and tech projects.",
+        icon: "code-2",
+        colorBg: "bg-indigo-50",
+        colorBorder: "border-indigo-100",
+        colorText: "text-indigo-600",
+        btnColor: "bg-indigo-600 hover:bg-indigo-700 text-white"
+      },
+      {
+        id: "creative-arts",
+        name: "Creative Arts Society",
+        category: "Arts & Culture",
+        faculty: "Faculty of Arts & Social Sciences",
+        members: 28,
+        description: "A hub for creative minds. Join us for workshops, exhibitions, and creative collaborations.",
+        icon: "camera",
+        colorBg: "bg-pink-50",
+        colorBorder: "border-pink-100",
+        colorText: "text-pink-600",
+        btnColor: "bg-pink-600 hover:bg-pink-700 text-white"
+      },
+      {
+        id: "campus-sports",
+        name: "Campus Sports Club",
+        category: "Sports",
+        faculty: "Faculty of Management Sciences",
+        members: 35,
+        description: "Promoting fitness, teamwork and healthy competition through various sports activities.",
+        icon: "trophy",
+        colorBg: "bg-emerald-50",
+        colorBorder: "border-emerald-100",
+        colorText: "text-emerald-600",
+        btnColor: "bg-emerald-600 hover:bg-emerald-700 text-white"
+      },
+      {
+        id: "leadership-dev",
+        name: "Leadership & Development",
+        category: "Personal Growth",
+        faculty: "Faculty of Admin",
+        members: 21,
+        description: "Build skills, network and grow as a leader. Gain the tools for a successful future.",
+        icon: "users",
+        colorBg: "bg-amber-50",
+        colorBorder: "border-amber-100",
+        colorText: "text-amber-600",
+        btnColor: "bg-amber-600 hover:bg-amber-700 text-white"
+      },
+      {
+        id: "environmental-action",
+        name: "Environmental Action Club",
+        category: "Environment",
+        faculty: "Faculty of Natural & Applied Sciences",
+        members: 18,
+        description: "Creating a cleaner, greener campus through awareness, action and sustainable practices.",
+        icon: "leaf",
+        colorBg: "bg-teal-50",
+        colorBorder: "border-teal-100",
+        colorText: "text-teal-600",
+        btnColor: "bg-teal-600 hover:bg-teal-700 text-white"
+      },
+      {
+        id: "debate-club",
+        name: "Debate & Public Speaking",
+        category: "Academic",
+        faculty: "Faculty of Arts & Social Sciences",
+        members: 24,
+        description: "Sharpen your mind, improve your communication and make your voice heard.",
+        icon: "mic",
+        colorBg: "bg-blue-50",
+        colorBorder: "border-blue-100",
+        colorText: "text-blue-600",
+        btnColor: "bg-blue-600 hover:bg-blue-700 text-white"
+      },
+      {
+        id: "literary-club",
+        name: "Literary & Book Club",
+        category: "Arts & Culture",
+        faculty: "Faculty of Arts & Social Sciences",
+        members: 31,
+        description: "Exploring classic literature, modern fiction, poetry writing, and engaging book review discussions.",
+        icon: "book-open",
+        colorBg: "bg-purple-50",
+        colorBorder: "border-purple-100",
+        colorText: "text-purple-600",
+        btnColor: "bg-purple-600 hover:bg-purple-700 text-white"
+      },
+      {
+        id: "coding-society",
+        name: "Coding & Open Source Society",
+        category: "Technology",
+        faculty: "Faculty of Natural & Applied Sciences",
+        members: 45,
+        description: "Collaborating on real-world open-source software projects, hackathons, and peer code reviews.",
+        icon: "terminal",
+        colorBg: "bg-indigo-50",
+        colorBorder: "border-indigo-100",
+        colorText: "text-indigo-600",
+        btnColor: "bg-indigo-600 hover:bg-indigo-700 text-white"
+      },
+      {
+        id: "chess-club",
+        name: "Chess & Board Games Club",
+        category: "Sports",
+        faculty: "Faculty of Education",
+        members: 26,
+        description: "Building strategic thinking, analytical skills, and campus-wide tournaments for chess and board games.",
+        icon: "hash",
+        colorBg: "bg-amber-50",
+        colorBorder: "border-amber-100",
+        colorText: "text-amber-700",
+        btnColor: "bg-amber-600 hover:bg-amber-700 text-white"
+      },
+      {
+        id: "red-cross",
+        name: "Red Cross & First Aid Society",
+        category: "Wellness",
+        faculty: "Faculty of Natural & Applied Sciences",
+        members: 38,
+        description: "Training students in emergency response, basic medical care, community health drives, and safety awareness.",
+        icon: "heart-handshake",
+        colorBg: "bg-red-50",
+        colorBorder: "border-red-100",
+        colorText: "text-red-600",
+        btnColor: "bg-red-600 hover:bg-red-700 text-white"
+      }
+    ];
+
+    const searchInput = document.getElementById('search-input');
+    const categoryFilter = document.getElementById('category-filter');
+    const facultyFilter = document.getElementById('faculty-filter');
+    const sortFilter = document.getElementById('sort-filter');
+    const clubsGrid = document.getElementById('clubs-grid');
+    const clubCountLabel = document.getElementById('club-count-label');
+    const emptyState = document.getElementById('empty-state');
+
+    function renderClubs() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const selectedCategory = categoryFilter.value;
+      const selectedFaculty = facultyFilter.value;
+      const sortBy = sortFilter.value;
+
+      // 1. Filter
+      let filtered = clubsData.filter(club => {
+        const matchesSearch = club.name.toLowerCase().includes(searchTerm) || club.description.toLowerCase().includes(searchTerm);
+        const matchesCategory = selectedCategory === 'All' || club.category === selectedCategory;
+        const matchesFaculty = selectedFaculty === 'All' || club.faculty === selectedFaculty;
+        return matchesSearch && matchesCategory && matchesFaculty;
+      });
+
+ // 2. Sort
+      if (sortBy === 'az') {
+        filtered.sort((a, b) => a.name.localeCompare(b.name));
+      } else if (sortBy === 'members') {
+        filtered.sort((a, b) => b.members - a.members);
+      } else {
+        // default popular (member count desc as well)
+        filtered.sort((a, b) => b.members - a.members);
+      }
+
+      // 3. Update Count
+      clubCountLabel.innerText = `Showing ${filtered.length} club${filtered.length === 1 ? '' : 's'}`;
+
+      // 4. Render Grid or Empty State
+      if (filtered.length === 0) {
+        clubsGrid.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+      clubsGrid.innerHTML = filtered.map(club => `
+        <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl ${club.colorBg} border ${club.colorBorder} flex items-center justify-center ${club.colorText} mb-4">
+              <i data-lucide="${club.icon}" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900">${club.name}</h3>
+            <div class="flex items-center gap-2 mt-1 text-xs text-slate-500 font-medium">
+              <span>${club.category}</span>
+              <span>•</span>
+              <span>${club.members} members</span>
+            </div>
+            <p class="mt-3 text-sm text-slate-600 line-clamp-3">${club.description}</p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-xs text-slate-400 flex items-center gap-1"><i data-lucide="users" class="w-3.5 h-3.5"></i> ${club.members} members</span>
+            <a href="club-detail.html?id=${club.id}" class="inline-flex items-center gap-1.5 text-xs font-semibold ${club.btnColor} py-2 px-4 rounded-xl transition shadow-sm">
+              View Club <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+      `).join('');
+
+      lucide.createIcons();
+    }
+
+    window.setCategoryFromSidebar = function(category) {
+      categoryFilter.value = category;
+      renderClubs();
+      
+      // Update active state style on sidebar buttons
+      const buttons = document.querySelectorAll('#category-sidebar-list button');
+      buttons.forEach(btn => {
+        if (btn.innerText.includes(category)) {
+          btn.className = "w-full text-left flex items-center justify-between py-2 px-3 rounded-xl bg-indigo-50 text-indigo-700 transition font-bold";
+        } else {
+          btn.className = "w-full text-left flex items-center justify-between py-2 px-3 rounded-xl text-slate-600 hover:bg-slate-50 transition font-medium";
+        }
+      });
+    };
+
+    searchInput.addEventListener('input', renderClubs);
+    categoryFilter.addEventListener('change', renderClubs);
+    facultyFilter.addEventListener('change', renderClubs);
+    sortFilter.addEventListener('change', renderClubs);
+
+    // Initial Render
+    renderClubs();
+
+    // Mobile Menu Toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    lucide.createIcons();
+  </script>
+
+  <script type="module">
+  // Import what you need from your centralized auth.js file
+  import { auth, db, onAuthStateChanged } from "./auth.js";
+
+  // Now you can use auth, db, or check authentication state on this page
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log("User is logged in on this page:", user.email);
+    } else {
+      console.log("No user logged in");
+    }
+  });
+  </script>
+</body>
+</html>

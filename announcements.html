@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Announcements - CampusConnect</title>
+  <link href="./output.css" rel="stylesheet">
+  <script src="./lucide.min.js"></script>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-800 antialiased flex flex-col font-sans">
+
+  <!-- NAVIGATION HEADER -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2.5 font-bold text-xl text-slate-900">
+        <div class="p-2 bg-indigo-600 text-white rounded-xl">
+          <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+        </div>
+        <span>CampusConnect</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="index.html" class="text-slate-600 hover:text-indigo-600 transition">Home</a>
+        <a href="clubs.html" class="text-slate-600 hover:text-indigo-600 transition">Discover Clubs</a>
+        <a href="events.html" class="text-slate-600 hover:text-indigo-600 transition">Events</a>
+        <a href="announcements.html" class="text-indigo-600 font-semibold border-b-2 border-indigo-600 pb-1">Announcements</a>
+      </nav>
+
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="login.html" class="px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 transition">Login</a>
+        <a href="register.html" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-sm transition">Register</a>
+      </div>
+
+      <button id="menu-btn" class="md:hidden p-2 text-slate-600 hover:text-slate-900 focus:outline-none">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-3">
+      <a href="index.html" class="block text-sm font-medium text-slate-600 py-1.5">Home</a>
+      <a href="clubs.html" class="block text-sm font-medium text-slate-600 py-1.5">Discover Clubs</a>
+      <a href="events.html" class="block text-sm font-medium text-slate-600 py-1.5">Events</a>
+      <a href="announcements.html" class="block text-sm font-medium text-indigo-600 py-1.5">Announcements</a>
+      <div class="pt-3 border-t border-slate-100 flex items-center gap-3" id="mobile-auth-container">
+        <a href="login.html" class="flex-1 text-center py-2 text-sm font-medium text-slate-700 bg-slate-100 rounded-xl">Login</a>
+        <a href="register.html" class="flex-1 text-center py-2 text-sm font-medium text-white bg-indigo-600 rounded-xl shadow-sm">Register</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT AREA -->
+  <main class="flex-1">
+
+    <section class="relative bg-slate-950 text-white py-16 sm:py-20 lg:py-24 overflow-hidden">
+      <img src="./image.jpg" alt="Campus Background" class="absolute inset-0 w-full h-full object-cover opacity-30" />
+      <div class="absolute inset-0 bg-linear-to-r from-slate-950 via-slate-950/80 to-transparent"></div>
+
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl">
+          <span class="text-xs font-bold uppercase tracking-wider text-indigo-400 bg-indigo-950/80 px-3 py-1 rounded-full border border-indigo-800/50">
+            OFFICIAL BULLETIN BOARD
+          </span>
+          <h1 class="mt-4 text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
+            Campus <span class="text-indigo-400">Announcements</span>
+          </h1>
+          <p class="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed">
+            Catch up on important updates, meeting rescheduling, registration notices, and bulletins directly from club executives and student affairs.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ANNOUNCEMENTS FEED SECTION -->
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div id="announcements-feed-container" class="space-y-6">
+        <div class="py-12 text-center text-slate-400">
+          <p class="text-sm">Loading announcements from database...</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-white border-t border-slate-200 text-slate-600 py-8 text-sm mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+      <div class="flex items-center justify-center md:justify-start gap-2 font-bold text-slate-900">
+        <div class="p-1.5 bg-indigo-600 text-white rounded-lg">
+          <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+        </div>
+        <span>CampusConnect</span>
+      </div>
+      <p class="text-xs text-slate-400">&copy; 2026 CampusConnect.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+    lucide.createIcons();
+  </script>
+
+  <script type="module">
+    import { auth, db, onAuthStateChanged } from "./auth.js";
+    import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+
+    async function loadAnnouncements() {
+      const container = document.getElementById('announcements-feed-container');
+      try {
+        let q = query(collection(db, "announcements"));
+        try {
+          q = query(collection(db, "announcements"), orderBy("createdAt", "desc"));
+        } catch(e) {}
+        
+        const snap = await getDocs(q);
+        if (snap.empty) {
+          container.innerHTML = `<div class="p-8 text-center text-slate-400 bg-white rounded-2xl border border-slate-200"><p class="text-sm font-medium">No published announcements yet.</p></div>`;
+          return;
+        }
+
+        let html = "";
+        snap.forEach((docSnap) => {
+          const item = docSnap.data();
+          const club = item.club || item.clubName || "CampusConnect";
+          const title = item.title || "Announcement";
+          const content = item.content || item.message || "";
+          
+          let initials = club.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+
+          html += `
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-sm">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-100">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-sm shrink-0">
+                    ${initials}
+                  </div>
+                  <div>
+                    <h3 class="text-sm font-bold text-slate-900">${club}</h3>
+                    <p class="text-xs text-slate-400">Official Bulletin</p>
+                  </div>
+                </div>
+                <span class="text-xs font-semibold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full w-fit">Live Update</span>
+              </div>
+              <div class="mt-4">
+                <h4 class="text-base sm:text-lg font-bold text-slate-900">${title}</h4>
+                <p class="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">${content}</p>
+              </div>
+            </div>
+          `;
+        });
+
+        container.innerHTML = html;
+        lucide.createIcons();
+      } catch (err) {
+        console.error("Error loading announcements:", err);
+      }
+    }
+
+    onAuthStateChanged(auth, () => {
+      loadAnnouncements();
+    });
+  </script>
+</body>
+</html>

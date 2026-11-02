@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CampusConnect - Student Club & Association Portal</title>
+  <!-- Tailwind CSS Output -->
+  <link href="./output.css" rel="stylesheet">
+  <!-- Local Offline Lucide Icons -->
+  <script src="./lucide.min.js"></script>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-800 antialiased flex flex-col font-sans">
+
+  <!-- NAVIGATION HEADER -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-2.5 font-bold text-xl text-slate-900">
+        <div class="p-2 bg-indigo-600 text-white rounded-xl">
+          <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+        </div>
+        <span>CampusConnect</span>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="index.html" class="text-indigo-600 font-semibold border-b-2 border-indigo-600 pb-1">Home</a>
+        <a href="clubs.html" class="text-slate-600 hover:text-indigo-600 transition">Discover Clubs</a>
+        <a href="events.html" class="text-slate-600 hover:text-indigo-600 transition">Events</a>
+        <a href="announcements.html" class="text-slate-600 hover:text-indigo-600 transition">Announcements</a>
+      </nav>
+
+      <!-- Desktop Auth Buttons (Only shows on large screens) -->
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="login.html" class="px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 transition">Login</a>
+        <a href="register.html" class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-sm transition">Register</a>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button id="menu-btn" class="md:hidden p-2 text-slate-600 hover:text-slate-900 focus:outline-none">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown Menu (Opened by Hamburger) -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-3">
+      <a href="index.html" class="block text-sm font-medium text-indigo-600 py-1.5">Home</a>
+      <a href="clubs.html" class="block text-sm font-medium text-slate-600 py-1.5">Discover Clubs</a>
+      <a href="events.html" class="block text-sm font-medium text-slate-600 py-1.5">Events</a>
+      <a href="announcements.html" class="block text-sm font-medium text-slate-600 py-1.5">Announcements</a>
+      
+      <div class="pt-3 border-t border-slate-100 flex items-center gap-3" id="mobile-auth-container">
+        <a href="login.html" class="flex-1 text-center py-2 text-sm font-medium text-slate-700 bg-slate-100 rounded-xl">Login</a>
+        <a href="register.html" class="flex-1 text-center py-2 text-sm font-medium text-white bg-indigo-600 rounded-xl shadow-sm">Register</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT AREA -->
+  <main class="flex-1">
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-slate-950 text-white py-16 sm:py-20 lg:py-24 overflow-hidden">
+      <!-- Local Background Image -->
+      <img 
+        src="./image.jpg" 
+        alt="Campus Background" 
+        class="absolute inset-0 w-full h-full object-cover opacity-30"
+      />
+      <div class="absolute inset-0 bg-linear-to-r from-slate-950 via-slate-950/80 to-transparent"></div>
+
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl">
+          <span class="text-xs font-bold uppercase tracking-wider text-indigo-400 bg-indigo-950/80 px-3 py-1 rounded-full border border-indigo-800/50">
+            YOUR CAMPUS. YOUR COMMUNITY.
+          </span>
+          <h1 class="mt-4 text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
+            Find your <span class="text-indigo-400">people.</span>
+          </h1>
+          <p class="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed">
+            Discover student clubs, join communities and stay updated on campus activities. Be part of something bigger.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <a href="clubs.html" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl shadow-lg shadow-indigo-600/30 flex items-center gap-2 transition">
+              <i data-lucide="compass" class="w-4 h-4"></i>
+              Explore Clubs
+            </a>
+            <a href="login.html" class="px-6 py-3 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-medium rounded-xl transition">
+              Sign In
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED CLUBS SECTION -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900">Featured Clubs</h2>
+          <p class="text-sm text-slate-500">Explore some of our active clubs and find your community.</p>
+        </div>
+        <a href="clubs.html" class="text-sm font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1 group self-start sm:self-auto">
+          View all clubs <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+        </a>
+      </div>
+
+      <!-- Responsive Grid: 1 col on mobile, 2 on tablet, 4 on desktop -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- Card 1: Tech Innovators -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 mb-4">
+              <i data-lucide="code-2" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900">Tech Innovators</h3>
+            <div class="flex items-center gap-2 mt-1 text-xs text-slate-500 font-medium">
+              <span>Technology</span>
+              <span>•</span>
+              <span>42 members</span>
+            </div>
+            <p class="mt-3 text-sm text-slate-600 line-clamp-2">Coding, workshops and tech projects.</p>
+          </div>
+          <a href="club-detail.html?id=tech-innovators" class="mt-6 inline-flex items-center justify-center gap-1.5 text-sm font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 py-2 px-4 rounded-xl transition">
+            View Club <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <!-- Card 2: Creative Arts Society -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-pink-50 border border-pink-100 flex items-center justify-center text-pink-600 mb-4">
+              <i data-lucide="camera" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900">Creative Arts Society</h3>
+            <div class="flex items-center gap-2 mt-1 text-xs text-slate-500 font-medium">
+              <span>Arts & Culture</span>
+              <span>•</span>
+              <span>28 members</span>
+            </div>
+            <p class="mt-3 text-sm text-slate-600 line-clamp-2">Photography, design and creative expression.</p>
+          </div>
+          <a href="club-detail.html?id=creative-arts" class="mt-6 inline-flex items-center justify-center gap-1.5 text-sm font-medium text-pink-600 bg-pink-50 hover:bg-pink-100 py-2 px-4 rounded-xl transition">
+            View Club <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <!-- Card 3: Campus Sports Club -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 mb-4">
+              <i data-lucide="trophy" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900">Campus Sports Club</h3>
+            <div class="flex items-center gap-2 mt-1 text-xs text-slate-500 font-medium">
+              <span>Sports</span>
+              <span>•</span>
+              <span>35 members</span>
+            </div>
+            <p class="mt-3 text-sm text-slate-600 line-clamp-2">Sports activities, competitions and fitness.</p>
+          </div>
+          <a href="club-detail.html?id=campus-sports" class="mt-6 inline-flex items-center justify-center gap-1.5 text-sm font-medium text-emerald-600 bg-emerald-50 hover:bg-emerald-100 py-2 px-4 rounded-xl transition">
+            View Club <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <!-- Card 4: Leadership & Development -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600 mb-4">
+              <i data-lucide="users" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900">Leadership & Development</h3>
+            <div class="flex items-center gap-2 mt-1 text-xs text-slate-500 font-medium">
+              <span>Personal Growth</span>
+              <span>•</span>
+              <span>21 members</span>
+            </div>
+            <p class="mt-3 text-sm text-slate-600 line-clamp-2">Build skills, network and grow as a leader.</p>
+          </div>
+          <a href="club-detail.html?id=leadership-dev" class="mt-6 inline-flex items-center justify-center gap-1.5 text-sm font-medium text-amber-700 bg-amber-50 hover:bg-amber-100 py-2 px-4 rounded-xl transition">
+            View Club <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TWO-COLUMN SECTION: STACKS ON MOBILE -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+        <!-- LEFT COLUMN: Upcoming Events -->
+        <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm">
+          <div class="flex items-center justify-between pb-6 border-b border-slate-100">
+            <div class="flex items-center gap-3">
+              <div class="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
+                <i data-lucide="calendar" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-slate-900">Upcoming Events</h3>
+                <p class="text-xs text-slate-500">Don't miss out on campus activities.</p>
+              </div>
+            </div>
+            <a href="events.html" class="text-xs font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1">
+              View all <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+          <!-- Dynamic Events Container -->
+          <div id="index-events-container" class="divide-y divide-slate-100">
+            <div class="py-6 text-center text-xs text-slate-400">Loading events...</div>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: Latest Announcements -->
+        <div class="lg:col-span-5 bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-3 pb-6 border-b border-slate-100">
+              <div class="p-2.5 bg-indigo-50 text-indigo-600 rounded-xl">
+                <i data-lucide="megaphone" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-slate-900">Latest Announcements</h3>
+                <p class="text-xs text-slate-500">Stay informed with club updates.</p>
+              </div>
+            </div>
+
+            <!-- Dynamic Announcements Container -->
+            <div id="index-announcements-container" class="mt-4 space-y-4">
+              <div class="py-6 text-center text-xs text-slate-400">Loading announcements...</div>
+            </div>
+          </div>
+
+          <a href="announcements.html" class="mt-6 block text-center text-xs font-semibold text-slate-600 hover:text-indigo-600 py-2 border border-slate-200 rounded-xl transition">
+            View all announcements
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 text-slate-600 py-8 text-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+      <div class="flex items-center justify-center md:justify-start gap-2 font-bold text-slate-900">
+        <div class="p-1.5 bg-indigo-600 text-white rounded-lg">
+          <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+        </div>
+        <span>CampusConnect</span>
+      </div>
+
+      <div class="flex flex-wrap justify-center items-center gap-6 text-xs text-slate-500">
+        <a href="index.html" class="hover:text-indigo-600">Home</a>
+        <a href="clubs.html" class="hover:text-indigo-600">Discover Clubs</a>
+        <a href="events.html" class="hover:text-indigo-600">Events</a>
+        <a href="announcements.html" class="hover:text-indigo-600">Announcements</a>
+      </div>
+
+      <p class="text-xs text-slate-400">&copy; 2026 CampusConnect.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts: Toggle Mobile Menu & Initialize Icons -->
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    lucide.createIcons();
+  </script>
+
+  <!-- Dynamic Firestore Feed Sync Script -->
+  <script type="module">
+    import { auth, db, onAuthStateChanged } from "./auth.js";
+    import { collection, getDocs, query, limit } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+
+    // 1. Fetch & Render Live Events
+    async function syncEvents() {
+      const container = document.getElementById('index-events-container');
+      try {
+        const eventsQuery = query(collection(db, "events"), limit(3));
+        const snap = await getDocs(eventsQuery);
+
+        if (snap.empty) {
+          // Fallback UI if no dynamic events published yet
+          container.innerHTML = `
+            <div class="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div class="flex items-center gap-4">
+                <div class="w-14 h-14 rounded-xl bg-indigo-50 border border-indigo-100 flex flex-col items-center justify-center text-indigo-600 shrink-0">
+                  <span class="text-[10px] font-bold uppercase">NOV</span>
+                  <span class="text-lg font-extrabold leading-none">05</span>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-900">Introduction to Web Development</h4>
+                  <p class="text-xs text-slate-500 mt-0.5">Tech Innovators • 10:00 AM • Library Hall</p>
+                </div>
+              </div>
+              <span class="self-start sm:self-auto px-2.5 py-1 text-xs font-semibold text-indigo-700 bg-indigo-50 rounded-full">Upcoming</span>
+            </div>
+            <div class="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div class="flex items-center gap-4">
+                <div class="w-14 h-14 rounded-xl bg-pink-50 border border-pink-100 flex flex-col items-center justify-center text-pink-600 shrink-0">
+                  <span class="text-[10px] font-bold uppercase">NOV</span>
+                  <span class="text-lg font-extrabold leading-none">08</span>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-900">Photography Walk</h4>
+                  <p class="text-xs text-slate-500 mt-0.5">Creative Arts Society • 2:00 PM • Campus Grounds</p>
+                </div>
+              </div>
+              <span class="self-start sm:self-auto px-2.5 py-1 text-xs font-semibold text-pink-700 bg-pink-50 rounded-full">Upcoming</span>
+            </div>
+          `;
+          return;
+        }
+
+        let html = "";
+        snap.forEach((docSnap) => {
+          const ev = docSnap.data();
+          const club = ev.club || ev.clubName || "Campus Club";
+          const title = ev.title || ev.eventName || "Campus Event";
+          const location = ev.location || ev.venue || "Campus Grounds";
+          const time = ev.time || "10:00 AM";
+
+          const parts = (ev.date || "NOV 01").trim().split(" ");
+          const month = parts[0] || "NOV";
+          const day = parts[1] || "01";
+
+          html += `
+            <div class="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div class="flex items-center gap-4">
+                <div class="w-14 h-14 rounded-xl bg-indigo-50 border border-indigo-100 flex flex-col items-center justify-center text-indigo-600 shrink-0">
+                  <span class="text-[10px] font-bold uppercase">${month}</span>
+                  <span class="text-lg font-extrabold leading-none">${day}</span>
+                </div>
+                <div>
+                  <h4 class="text-sm font-bold text-slate-900">${title}</h4>
+                  <p class="text-xs text-slate-500 mt-0.5">${club} • ${time} • ${location}</p>
+                </div>
+              </div>
+              <span class="self-start sm:self-auto px-2.5 py-1 text-xs font-semibold text-indigo-700 bg-indigo-50 rounded-full">Upcoming</span>
+            </div>
+          `;
+        });
+
+        container.innerHTML = html;
+      } catch (err) {
+        console.error("Error syncing index events:", err);
+      }
+    }
+
+    // 2. Fetch & Render Live Announcements
+    // async function syncAnnouncements() {
+    //   const container = document.getElementById('index-announcements-container');
+    //   try {
+    //     const announcementsQuery = query(collection(db, "announcements"), limit(3));
+    //     const snap = await getDocs(announcementsQuery);
+
+    //     if (snap.empty) {
+    //       // Fallback UI if no dynamic events published yet
+    //       container.innerHTML = `
+    //         <div class="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    //           <div class="flex items-center gap-4">
+    //             <div class="w-14 h-14 rounded-xl bg-indigo-50 border border-indigo-100 flex flex-col items-center justify-center text-indigo-600 shrink-0">
+    //               <span class="text-[10px] font-bold uppercase">NOV</span>
+    //               <span class="text-lg font-extrabold leading-none">05</span>
+    //             </div>
+    //             <div>
+    //               <h4 class="text-sm font-bold text-slate-900">Introduction to Web Development</h4>
+    //               <p class="text-xs text-slate-500 mt-0.5">Tech Innovators • 10:00 AM • Library Hall</p>
+    //             </div>
+    //           </div>
+    //           <span class="self-start sm:self-auto px-2.5 py-1 text-xs font-semibold text-indigo-700 bg-indigo-50 rounded-full">Upcoming</span>
+    //         </div>
+    //         <div class="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    //           <div class="flex items-center gap-4">
+    //             <div class="w-14 h-14 rounded-xl bg-pink-50 border border-pink-100 flex flex-col items-center justify-center text-pink-600 shrink-0">
+    //               <span class="text-[10px] font-bold uppercase">NOV</span>
+    //               <span class="text-lg font-extrabold leading-none">08</span>
+    //             </div>
+    //             <div>
+    //               <h4 class="text-sm font-bold text-slate-900">Photography Walk</h4>
+    //               <p class="text-xs text-slate-500 mt-0.5">Creative Arts Society • 2:00 PM • Campus Grounds</p>
+    //             </div>
+    //           </div>
+    //           <span class="self-start sm:self-auto px-2.5 py-1 text-xs font-semibold text-pink-700 bg-pink-50 rounded-full">Upcoming</span>
+    //         </div>
+    //       `;
+    //       return;
+    //     }
+
+    //     let html = "";
+    //     snap.forEach((docSnap) => {
+    //       const ev = docSnap.data();
+    //       const club = ev.club || ev.clubName || "Campus Club";
+    //       const title = ev.title || ev.eventName || "Campus Event";
+    //       const location = ev.location || ev.venue || "Campus Grounds";
+    //       const time = ev.time || "10:00 AM";
+
+    //       const parts = (ev.date || "NOV 01").trim().split(" ");
+    //       const month = parts[0] || "NOV";
+    //       const day = parts[1] || "01";
+
+    //       html += `
+    //         <div class="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    //           <div class="flex items-center gap-4">
+    //             <div class="w-14 h-14 rounded-xl bg-indigo-50 border border-indigo-100 flex flex-col items-center justify-center text-indigo-600 shrink-0">
+    //               <span class="text-[10px] font-bold uppercase">${month}</span>
+    //               <span class="text-lg font-extrabold leading-none">${day}</span>
+    //             </div>
+    //             <div>
+    //               <h4 class="text-sm font-bold text-slate-900">${title}</h4>
+    //               <p class="text-xs text-slate-500 mt-0.5">${club} • ${time} • ${location}</p>
+    //             </div>
+    //           </div>
+    //           <span class="self-start sm:self-auto px-2.5 py-1 text-xs font-semibold text-indigo-700 bg-indigo-50 rounded-full">Upcoming</span>
+    //         </div>
+    //       `;
+    //     });
+
+    //     container.innerHTML = html;
+    //   } catch (err) {
+    //     console.error("Error syncing index events:", err);
+    //   }
+    // }
+
+    // 2. Fetch & Render Live Announcements
+    async function syncAnnouncements() {
+      const container = document.getElementById('index-announcements-container');
+      try {
+        const announcementsQuery = query(collection(db, "announcements"), limit(3));
+        const snap = await getDocs(announcementsQuery);
+
+        if (snap.empty) {
+          // Fallback UI if no dynamic announcements published yet
+          container.innerHTML = `
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="flex items-center justify-between text-xs">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
+                  <span class="font-bold text-slate-800">Tech Innovators</span>
+                </div>
+                <span class="text-slate-400">2h ago</span>
+              </div>
+              <p class="text-xs text-slate-600 mt-1.5">Web Dev workshop now open for registration!</p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="flex items-center justify-between text-xs">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-pink-500"></span>
+                  <span class="font-bold text-slate-800">Creative Arts Society</span>
+                </div>
+                <span class="text-slate-400">5h ago</span>
+              </div>
+              <p class="text-xs text-slate-600 mt-1.5">Photography Walk postponed to Nov 8th.</p>
+            </div>
+          `;
+          return;
+        }
+
+        let html = "";
+        snap.forEach((docSnap) => {
+          const an = docSnap.data();
+          const club = an.club || an.clubName || "CampusConnect";
+          const title = an.title || "Notice";
+          const content = an.content || an.message || "";
+
+          html += `
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
+              <div class="flex items-center justify-between text-xs">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
+                  <span class="font-bold text-slate-800">${club}</span>
+                </div>
+                <span class="text-slate-400">Live</span>
+              </div>
+              <p class="text-xs font-bold text-slate-800 mt-1">${title}</p>
+              <p class="text-xs text-slate-600 mt-0.5 line-clamp-2">${content}</p>
+            </div>
+          `;
+        });
+
+        container.innerHTML = html;
+      } catch (err) {
+        console.error("Error syncing index announcements:", err);
+      }
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      syncEvents();
+      syncAnnouncements();
+    });
+  </script>
+</body>
+</html>

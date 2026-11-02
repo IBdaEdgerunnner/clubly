@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard - CampusConnect</title>
+  <link href="./output.css" rel="stylesheet">
+  <script src="./lucide.min.js"></script>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-800 antialiased flex flex-col font-sans">
+
+  <!-- NAVIGATION HEADER -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2.5 font-bold text-xl text-slate-900">
+        <div class="p-2 bg-indigo-600 text-white rounded-xl">
+          <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+        </div>
+        <span>CampusConnect</span>
+      </a>
+
+      <!-- ACCOUNT CENTER & PROFILE DROPDOWN -->
+      <div class="flex items-center gap-4 relative">
+        <button id="profile-menu-btn" onclick="toggleProfileMenu(event)" class="w-10 h-10 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center text-sm shadow-md hover:bg-indigo-700 transition focus:outline-none">
+          <span id="user-initials">...</span>
+        </button>
+
+        <div id="profile-dropdown" class="hidden absolute right-0 top-12 w-72 bg-white rounded-2xl shadow-xl border border-slate-200 p-4 z-50 text-left">
+          <div class="flex items-center gap-3 pb-3 border-b border-slate-100">
+            <div class="w-10 h-10 rounded-full bg-indigo-50 text-indigo-600 font-bold flex items-center justify-center text-sm shrink-0" id="dropdown-initials">...</div>
+            <div class="overflow-hidden">
+              <p class="text-sm font-bold text-slate-900 truncate" id="dropdown-name">Loading...</p>
+              <p class="text-xs text-slate-500 truncate" id="dropdown-dept">Loading dept...</p>
+            </div>
+          </div>
+          <div class="py-3 space-y-2 border-b border-slate-100 text-xs">
+            <div class="flex justify-between items-center text-slate-600">
+              <span class="font-medium text-slate-400">Matric Number:</span>
+              <span class="font-bold text-slate-800" id="dropdown-matric">...</span>
+            </div>
+            <div class="flex justify-between items-center text-slate-600">
+              <span class="font-medium text-slate-400">Department:</span>
+              <span class="font-bold text-slate-800 truncate max-w-37.5" id="dropdown-dept-text">...</span>
+            </div>
+          </div>
+          <div class="pt-3">
+            <button onclick="handleLogout()" class="w-full py-2.5 px-3 bg-rose-50 hover:bg-rose-100 text-rose-600 font-bold text-xs rounded-xl transition flex items-center justify-center gap-2">
+              <i data-lucide="log-out" class="w-4 h-4"></i> Log Out
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT AREA -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <div class="bg-linear-to-r from-indigo-900 via-slate-900 to-indigo-950 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#e0e7ff_1px,transparent_1px)] bg-size-[16px_16px]"></div>
+      
+      <div class="relative z-10">
+        <span class="text-xs font-bold uppercase tracking-wider text-indigo-400 bg-indigo-950/80 px-3 py-1 rounded-full border border-indigo-800/50">
+          Student Portal Dashboard
+        </span>
+        <h1 class="mt-3 text-2xl sm:text-3xl font-extrabold tracking-tight" id="welcome-banner-title">
+          Welcome back! 👋
+        </h1>
+        <p class="mt-1 text-sm text-slate-300 max-w-xl">
+          Here is an overview of your club memberships, upcoming campus activities, and official announcements.
+        </p>
+      </div>
+
+      <div class="relative z-10 flex flex-wrap gap-3">
+        <a href="clubs.html" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs sm:text-sm rounded-xl shadow-lg transition flex items-center gap-2">
+          <i data-lucide="compass" class="w-4 h-4"></i> Explore More Clubs
+        </a>
+      </div>
+    </div>
+
+    <!-- QUICK STATS GRID -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <!-- Joined Clubs Stat -->
+      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 shrink-0">
+          <i data-lucide="users" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Joined Clubs</p>
+          <h3 id="stat-joined-count" class="text-xl font-extrabold text-slate-900 mt-0.5">0 Clubs</h3>
+        </div>
+      </div>
+
+      <!-- Events Stat -->
+      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
+          <i data-lucide="calendar-check" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Events</p>
+          <h3 id="stat-events-count" class="text-xl font-extrabold text-slate-900 mt-0.5">0 Events</h3>
+        </div>
+      </div>
+
+      <!-- Announcements Stat -->
+      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600 shrink-0">
+          <i data-lucide="megaphone" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Announcements</p>
+          <h3 id="stat-announcements-count" class="text-xl font-extrabold text-slate-900 mt-0.5">0 Updates</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT GRID -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- LEFT COLUMN: MY CLUB MEMBERSHIPS -->
+      <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between pb-6 border-b border-slate-100">
+            <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+              <i data-lucide="shield" class="w-5 h-5 text-indigo-600"></i> My Club Memberships
+            </h3>
+            <span id="membership-status-badge" class="text-xs font-semibold bg-slate-100 text-slate-500 px-2.5 py-1 rounded-full">None Active</span>
+          </div>
+
+          <!-- Memberships List Container -->
+          <div id="my-memberships-container" class="mt-4 space-y-3">
+            <div class="py-12 text-center">
+              <div class="w-12 h-12 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3">
+                <i data-lucide="compass" class="w-6 h-6"></i>
+              </div>
+              <h4 class="text-sm font-bold text-slate-800">No club memberships yet</h4>
+              <p class="text-xs text-slate-500 max-w-xs mx-auto mt-1">Explore campus organizations and join communities to collaborate on projects.</p>
+            </div>
+          </div>
+        </div>
+
+        <a href="clubs.html" class="mt-6 block text-center text-xs font-semibold text-slate-600 hover:text-indigo-600 py-2.5 border border-slate-200 rounded-xl transition">
+          + Browse & Join Clubs
+        </a>
+      </div>
+
+      <!-- RIGHT COLUMN: UPCOMING EVENTS & ANNOUNCEMENTS -->
+      <div class="lg:col-span-5 space-y-8 flex flex-col">
+        
+        <!-- Events Card -->
+        <div class="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm flex flex-col justify-between flex-1">
+          <div>
+            <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+              <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                <i data-lucide="calendar" class="w-5 h-5 text-indigo-600"></i> Upcoming Events
+              </h3>
+              <a href="events.html" class="text-xs font-semibold text-indigo-600 hover:text-indigo-700">View all</a>
+            </div>
+
+            <div id="dashboard-events-container" class="mt-4 space-y-3">
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-100 text-center py-6">
+                <p class="text-xs text-slate-400">Loading events...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Announcements Card -->
+        <div class="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm flex flex-col justify-between flex-1">
+          <div>
+            <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+              <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                <i data-lucide="megaphone" class="w-5 h-5 text-indigo-600"></i> Campus Announcements
+              </h3>
+              <a href="announcements.html" class="text-xs font-semibold text-indigo-600 hover:text-indigo-700">View all</a>
+            </div>
+
+            <div id="dashboard-announcements-container" class="mt-4 space-y-3">
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-100 text-center py-6">
+                <p class="text-xs text-slate-400">Loading announcements...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="bg-white border-t border-slate-200 text-slate-600 py-8 text-sm mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+      <div class="flex items-center justify-center md:justify-start gap-2 font-bold text-slate-900">
+        <div class="p-1.5 bg-indigo-600 text-white rounded-lg"><i data-lucide="graduation-cap" class="w-4 h-4"></i></div>
+        <span>CampusConnect</span>
+      </div>
+      <p class="text-xs text-slate-400">&copy; 2026 CampusConnect.</p>
+    </div>
+  </footer>
+
+  <!-- PROFILE DROPDOWN TOGGLE SCRIPT -->
+  <script>
+    window.toggleProfileMenu = function(event) {
+      event.stopPropagation();
+      const dropdown = document.getElementById('profile-dropdown');
+      if (dropdown) dropdown.classList.toggle('hidden');
+    };
+
+    window.addEventListener('click', () => {
+      const dropdown = document.getElementById('profile-dropdown');
+      if (dropdown && !dropdown.classList.contains('hidden')) {
+        dropdown.classList.add('hidden');
+      }
+    });
+  </script>
+
+  <!-- DASHBOARD DATA SYNC SCRIPT -->
+  <script type="module">
+    import { auth, db, onAuthStateChanged } from "./auth.js";
+    import { doc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          // 1. Fetch User Profile Data from 'users' collection (matching register.html)
+          const docRef = doc(db, "users", user.uid);
+          const docSnap = await getDoc(docRef);
+          
+          let fullName = user.displayName || "Student";
+          let matric = "N/A";
+          let dept = "Computer Science";
+
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            fullName = data.fullName || "Student";
+            matric = data.matricNumber || "N/A";
+            dept = data.department || "Computer Science";
+          }
+
+          document.getElementById('welcome-banner-title').innerText = `Welcome back, ${fullName.split(' ')[0]}! 👋`;
+          
+          const initials = fullName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+          document.getElementById('user-initials').innerText = initials;
+          document.getElementById('dropdown-initials').innerText = initials;
+          document.getElementById('dropdown-name').innerText = fullName;
+          document.getElementById('dropdown-dept').innerText = dept;
+          document.getElementById('dropdown-matric').innerText = matric;
+          document.getElementById('dropdown-dept-text').innerText = dept;
+
+          // 2. Fetch User's Club Memberships & Requests from club_members & club_requests (matching club-detail.html)
+          const membershipsContainer = document.getElementById('my-memberships-container');
+          let membershipHtml = "";
+          let clubCount = 0;
+          const joinedClubIds = new Set();
+
+          // Query approved club members
+          const memberQuery = query(collection(db, "club_members"), where("uid", "==", user.uid));
+          const memberSnap = await getDocs(memberQuery);
+          
+          memberSnap.forEach((docSnap) => {
+            const mem = docSnap.data();
+            const clubId = mem.clubSlug;
+            if (clubId && !joinedClubIds.has(clubId)) {
+              joinedClubIds.add(clubId);
+              clubCount++;
+              membershipHtml += `
+                <a href="club-detail.html?id=${clubId}" class="p-4 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200/85 flex items-center justify-between transition block">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                      <i data-lucide="shield-check" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                      <h4 class="text-sm font-bold text-slate-900">${mem.clubName || "Student Club"}</h4>
+                      <p class="text-xs text-slate-500">Official Member</p>
+                    </div>
+                  </div>
+                  <span class="text-xs font-bold bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full">Member</span>
+                </a>
+              `;
+            }
+          });
+
+          // Query pending club requests
+          const reqQuery = query(collection(db, "club_requests"), where("uid", "==", user.uid));
+          const reqSnap = await getDocs(reqQuery);
+
+          reqSnap.forEach((docSnap) => {
+            const req = docSnap.data();
+            const clubId = req.clubSlug;
+            if (clubId && !joinedClubIds.has(clubId)) {
+              joinedClubIds.add(clubId);
+              clubCount++;
+              const isPending = req.status === "pending";
+              const badgeClass = isPending ? "bg-amber-100 text-amber-700" : "bg-emerald-100 text-emerald-700";
+              const statusText = isPending ? "Pending" : "Approved";
+              
+              membershipHtml += `
+                <a href="club-detail.html?id=${clubId}" class="p-4 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200/85 flex items-center justify-between transition block">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                      <i data-lucide="clock" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                      <h4 class="text-sm font-bold text-slate-900">${req.clubName || "Student Club"}</h4>
+                      <p class="text-xs text-slate-500">Application status</p>
+                    </div>
+                  </div>
+                  <span class="text-xs font-bold ${badgeClass} px-3 py-1 rounded-full">${statusText}</span>
+                </a>
+              `;
+            }
+          });
+
+          if (clubCount > 0) {
+            membershipsContainer.innerHTML = membershipHtml;
+            document.getElementById('stat-joined-count').innerText = `${clubCount} Clubs`;
+            document.getElementById('membership-status-badge').innerText = `${clubCount} Active/Pending`;
+          }
+
+          // 3. Fetch Events & Update Events Counter
+          try {
+            const eventsSnap = await getDocs(collection(db, "events"));
+            const eventsContainer = document.getElementById('dashboard-events-container');
+            document.getElementById('stat-events-count').innerText = `${eventsSnap.size} Events`;
+
+            if (eventsSnap.empty) {
+              eventsContainer.innerHTML = `<div class="p-4 text-center text-xs text-slate-400">No upcoming events found.</div>`;
+            } else {
+              let eventsHtml = "";
+              eventsSnap.forEach((docSnap) => {
+                const ev = docSnap.data();
+                eventsHtml += `
+                  <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-100 flex items-start gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-indigo-50 border border-indigo-100 flex flex-col items-center justify-center text-indigo-600 shrink-0">
+                      <span class="text-[9px] font-bold uppercase">${ev.month || 'NOV'}</span>
+                      <span class="text-sm font-extrabold leading-none">${ev.day || '01'}</span>
+                    </div>
+                    <div>
+                      <h4 class="text-xs font-bold text-slate-900">${ev.title || ev.eventName || 'Campus Event'}</h4>
+                      <p class="text-[11px] text-slate-500 mt-0.5">${ev.time || ''} • ${ev.location || ev.venue || 'Campus'}</p>
+                    </div>
+                  </div>
+                `;
+              });
+              eventsContainer.innerHTML = eventsHtml;
+            }
+          } catch (e) {
+            console.error("Error fetching events:", e);
+          }
+
+          // 4. Fetch Announcements & Update Announcements Counter
+          try {
+            const announcementsSnap = await getDocs(collection(db, "announcements"));
+            const announcementsContainer = document.getElementById('dashboard-announcements-container');
+            document.getElementById('stat-announcements-count').innerText = `${announcementsSnap.size} Updates`;
+
+            if (announcementsSnap.empty) {
+              announcementsContainer.innerHTML = `<div class="p-4 text-center text-xs text-slate-400">No active announcements.</div>`;
+            } else {
+              let announcementsHtml = "";
+              announcementsSnap.forEach((docSnap) => {
+                const an = docSnap.data();
+                announcementsHtml += `
+                  <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
+                    <div class="flex items-center justify-between text-xs mb-1">
+                      <span class="font-bold text-indigo-600">${an.clubName || an.club || an.author || 'CampusConnect'}</span>
+                      <span class="text-[10px] text-slate-400">Live</span>
+                    </div>
+                    <p class="text-xs font-semibold text-slate-800">${an.title || ''}</p>
+                    <p class="text-[11px] text-slate-600 mt-0.5">${an.content || an.message || ''}</p>
+                  </div>
+                `;
+              });
+              announcementsContainer.innerHTML = announcementsHtml;
+            }
+          } catch (e) {
+            console.error("Error fetching announcements:", e);
+          }
+
+          lucide.createIcons();
+        } catch (err) {
+          console.error("Error loading dashboard data:", err);
+        }
+      } else {
+        window.location.href = "login.html";
+      }
+    });
+  </script>
+</body>
+</html>

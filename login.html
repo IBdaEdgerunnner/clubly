@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In - CampusConnect</title>
+  <!-- Tailwind CSS Output -->
+  <link href="./output.css" rel="stylesheet">
+  <!-- Local Offline Lucide Icons -->
+  <script src="./lucide.min.js"></script>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-800 antialiased flex flex-col font-sans relative overflow-x-hidden">
+
+  <!-- BACKGROUND IMAGE WITH BLUE/DARK OVERLAY -->
+  <div class="absolute inset-0 z-0">
+    <img src="./image.jpg" alt="Campus Background" class="w-full h-full object-cover opacity-30" />
+    <div class="absolute inset-0 bg-linear-to-br from-slate-950 via-indigo-950/80 to-slate-950"></div>
+  </div>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="relative z-10 w-full bg-transparent border-b border-white/10 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2.5 font-bold text-xl text-white">
+        <div class="p-2 bg-indigo-600 text-white rounded-xl">
+          <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+        </div>
+        <span>CampusConnect</span>
+      </a>
+      <a href="index.html" class="text-sm font-medium text-slate-300 hover:text-white transition flex items-center gap-1.5">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Home
+      </a>
+    </div>
+  </header>
+
+  <!-- MAIN LOGIN CARD CONTAINER -->
+  <main class="relative z-10 flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12">
+    <div class="w-full max-w-md bg-white/95 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20">
+      
+      <div class="text-center mb-8">
+        <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl mx-auto flex items-center justify-center mb-3 shadow-inner">
+          <i data-lucide="lock" class="w-6 h-6"></i>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Welcome Back</h2>
+        <p class="text-xs sm:text-sm text-slate-500 mt-1">Sign in to access your account and manage activities.</p>
+      </div>
+
+      <!-- ROLE TOGGLE SWITCH -->
+      <div class="bg-slate-100 p-1.5 rounded-2xl flex items-center mb-6 relative">
+        <button id="student-tab" type="button" onclick="setRole('student')" class="flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-xl transition bg-white text-indigo-600 shadow-sm flex items-center justify-center gap-2">
+          <i data-lucide="user" class="w-4 h-4"></i> Student
+        </button>
+        <button id="staff-tab" type="button" onclick="setRole('staff')" class="flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-xl transition text-slate-500 hover:text-slate-900 flex items-center justify-center gap-2">
+          <i data-lucide="shield-check" class="w-4 h-4"></i> Staff / Admin
+        </button>
+      </div>
+
+      <!-- INLINE FORM FEEDBACK BANNER -->
+      <div id="form-message" class="hidden mb-4 p-3 rounded-xl text-xs font-semibold text-center"></div>
+
+      <!-- LOGIN FORM -->
+      <form id="login-form" class="space-y-4">
+        
+        <div>
+          <label id="id-label" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Matric Number</label>
+          <div class="relative">
+            <i data-lucide="user-round" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+            <input id="id-input" type="text" required placeholder="Enter your matric number" 
+              class="w-full pl-10 pr-4 py-3 text-sm bg-slate-50 text-slate-800 rounded-xl border border-slate-200 focus:bg-white focus:border-indigo-600 focus:outline-none transition">
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600">Password</label>
+            <a href="#" class="text-xs font-semibold text-indigo-600 hover:text-indigo-700">Forgot Password?</a>
+          </div>
+          <div class="relative">
+            <i data-lucide="key-round" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+            <input id="password-input" type="password" required placeholder="••••••••" 
+              class="w-full pl-10 pr-4 py-3 text-sm bg-slate-50 text-slate-800 rounded-xl border border-slate-200 focus:bg-white focus:border-indigo-600 focus:outline-none transition">
+          </div>
+        </div>
+
+        <button type="submit" id="submit-btn" class="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm rounded-xl shadow-lg shadow-indigo-600/30 transition flex items-center justify-center gap-2 mt-2">
+          <span id="btn-text">Sign In</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+
+      </form>
+
+      <div class="mt-8 pt-6 border-t border-slate-100 text-center text-xs sm:text-sm text-slate-500">
+        Don't have an account yet? 
+        <a href="register.html" class="font-bold text-indigo-600 hover:text-indigo-700 ml-1">Create account</a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="relative z-10 w-full py-6 text-center text-xs text-slate-400">
+    &copy; 2026 CampusConnect. All rights reserved.
+  </footer>
+
+  <!-- FIREBASE & LOGIN LOGIC SCRIPT -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC-svBQ13G-1oyjocQUmmglIw2Djh4KF3g",
+      authDomain: "clubly-ebe85.firebaseapp.com",
+      projectId: "clubly-ebe85",
+      storageBucket: "clubly-ebe85.firebasestorage.app",
+      messagingSenderId: "604871007339",
+      appId: "1:604871007339:web:4a5cedfc3ceb7ea3e9252e"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    let currentRole = 'student';
+
+    function showMessage(text, isError = true) {
+      const msgEl = document.getElementById('form-message');
+      msgEl.innerText = text;
+      msgEl.className = isError 
+        ? "mb-4 p-3 rounded-xl text-xs font-semibold text-center bg-rose-50 text-rose-600 border border-rose-200" 
+        : "mb-4 p-3 rounded-xl text-xs font-semibold text-center bg-emerald-50 text-emerald-600 border border-emerald-200";
+      msgEl.classList.remove('hidden');
+    }
+
+    function setLoading(isLoading) {
+      const submitBtn = document.getElementById('submit-btn');
+      const btnText = document.getElementById('btn-text');
+
+      if (isLoading) {
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+        btnText.innerText = "Signing in...";
+      } else {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+        btnText.innerText = "Sign In";
+      }
+    }
+
+    window.setRole = function(role) {
+      currentRole = role;
+      const studentTab = document.getElementById('student-tab');
+      const staffTab = document.getElementById('staff-tab');
+      const idLabel = document.getElementById('id-label');
+      const idInput = document.getElementById('id-input');
+      
+      document.getElementById('form-message').classList.add('hidden');
+
+      if (role === 'student') {
+        studentTab.className = "flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-xl transition bg-white text-indigo-600 shadow-sm flex items-center justify-center gap-2";
+        staffTab.className = "flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-xl transition text-slate-500 hover:text-slate-900 flex items-center justify-center gap-2";
+        idLabel.innerText = "Matric Number";
+        idInput.placeholder = "Enter your matric number";
+      } else {
+        staffTab.className = "flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-xl transition bg-white text-indigo-600 shadow-sm flex items-center justify-center gap-2";
+        studentTab.className = "flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-xl transition text-slate-500 hover:text-slate-900 flex items-center justify-center gap-2";
+        idLabel.innerText = "Email";
+        idInput.placeholder = "Enter your email";
+      }
+    };
+
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const identifier = document.getElementById('id-input').value.trim();
+      const password = document.getElementById('password-input').value;
+
+      let authEmail = identifier;
+      if (currentRole === 'student') {
+        authEmail = `${identifier.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase()}@campusconnect.nsuk.edu`;
+      }
+
+      setLoading(true);
+      showMessage("Authenticating...", false);
+
+      try {
+        // 1. Authenticate with Firebase Auth
+        const userCred = await signInWithEmailAndPassword(auth, authEmail, password);
+        const user = userCred.user;
+
+        // 2. Fetch user profile document from Firestore to verify role & routing
+        showMessage("Verifying account permissions...", false);
+        const userDocRef = doc(db, "users", user.uid);
+        const userSnap = await getDoc(userDocRef);
+
+        if (!userSnap.exists()) {
+          throw new Error("User profile data not found in database. Please register again.");
+        }
+
+        const userData = userSnap.data();
+
+        // 3. Role-based Redirection
+        if (userData.role === 'admin') {
+          showMessage("Admin verified! Redirecting to dashboard...", false);
+          const clubSlug = userData.assignedClubSlug || 'tech-innovators';
+          setTimeout(() => {
+            window.location.href = `admin-dashboard.html?club=${clubSlug}`;
+          }, 600);
+        } else {
+          showMessage("Login successful! Redirecting to student dashboard...", false);
+          setTimeout(() => {
+            window.location.href = "dashboard.html";
+          }, 600);
+        }
+
+      } catch (err) {
+        console.error("Login error:", err);
+        let errorMsg = err.message;
+        if (err.code === 'auth/invalid-credential' || err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
+          errorMsg = "Invalid matric number, email, or password. Please check your details.";
+        }
+        showMessage(errorMsg);
+        setLoading(false);
+      }
+    });
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>
