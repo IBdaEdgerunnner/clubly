@@ -52,3 +52,5 @@ Clubly (CampusConnect) was developed as a student project to demonstrate practic
 ---
 
 Clubly – Bringing Students and Campus Communities Together.
+
+Developed by IBdaEdgerunnner_
